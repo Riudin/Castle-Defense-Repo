@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/UI/Buttons/blue_button03.png" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/Buttons/blue_button05.png" type="Texture" id=3]
 [ext_resource path="res://Assets/UI/Icons/back.png" type="Texture" id=4]
-[ext_resource path="res://Scripts/UIScripts/VictoryScreen.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/UIScenes/VictoryScreen.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Resources/Fonts/retro_gaming_6_noOL.tres" type="DynamicFont" id=6]
 
 [sub_resource type="StyleBoxFlat" id=2]
