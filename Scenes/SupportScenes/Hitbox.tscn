@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/SupportScenes/Hitbox.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 5.33333
+height = 29.3333
+
+[node name="Hitbox" type="Area2D"]
+collision_layer = 8
+monitoring = false
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )

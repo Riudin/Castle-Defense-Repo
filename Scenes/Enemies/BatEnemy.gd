@@ -38,17 +38,17 @@ func _physics_process(delta):
 func _on_AttackRateTimer_timeout():
 	if GameData.player_data["health"] <= 0:
 		can_attack = false
-	elif get_node("Hitbox").overlaps_area(get_parent().get_parent().get_parent().get_node("Wall/Hurtbox")) and can_attack:
-		emit_signal("wall_damage", wall_damage)
+#	elif get_node("Hitbox").overlaps_area(get_parent().get_parent().get_parent().get_node("Player/Wall/Hurtbox")) and can_attack:
+#		emit_signal("wall_damage", wall_damage)
 
 
 func move(delta):
 	move_and_collide(Vector2.LEFT * speed * delta)
 
 
-func _on_Hurtbox_area_entered(_area):
+func _on_Hurtbox_area_entered(hitbox):
 	if is_alive:
-		health -= GameData.player_data["damage"]
+		health -= hitbox.damage
 		health_bar.visible = true
 		health_bar.value = health
 		if health <= 0:

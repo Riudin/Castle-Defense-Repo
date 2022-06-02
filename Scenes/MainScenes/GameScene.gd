@@ -10,8 +10,6 @@ var time_start = 0
 var time_now = 0
 var playtime = 0 setget set_playtime, get_playtime
 
-var _enemies = []
-
 
 func _ready():
 	get_node("UI").update_health_bar(GameData.player_data["health"])
@@ -21,23 +19,25 @@ func _ready():
 	time_start = OS.get_unix_time()
 
 
-func _physics_process(delta):
-#	_enemies = enemy_spawner.get_node("EnemySpawn").get_children()
-#	print(_enemies)
-	pass
-
-
-func on_wall_damage(damage): 
-	GameData.player_data["health"] -= damage
-	if GameData.player_data["health"] > 0:
-		get_node("UI").update_health_bar(GameData.player_data["health"])
+func game_over(result):
+	if result:
+		return
 	else:
 		time_now = OS.get_unix_time()
 		playtime = time_now - time_start
-		print(playtime)
-		get_node("UI").update_health_bar(0)
-		get_node("UI/HUD/HealthAndMana/HealthManaBars/HP").value = 0
-		emit_signal("game_finished", false)
+
+
+#func on_wall_damage(damage): 
+#	GameData.player_data["health"] -= damage
+#	if GameData.player_data["health"] > 0:
+#		get_node("UI").update_health_bar(GameData.player_data["health"])
+#	else:
+#		time_now = OS.get_unix_time()
+#		playtime = time_now - time_start
+#		print(playtime)
+#		get_node("UI").update_health_bar(0)
+#		get_node("UI/HUD/HealthAndMana/HealthManaBars/HP").value = 0
+#		emit_signal("game_finished", false)
 
 
 func generate_loot():

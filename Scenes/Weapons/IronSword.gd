@@ -1,7 +1,15 @@
-extends Area2D
+extends KinematicBody2D
 
+
+onready var hitbox = get_node("Hitbox")
 
 export var projectile_speed = 300
+export (int) var projectile_damage = 1
+
+
+func _ready():
+	projectile_damage = GameData.player_data["damage"]
+	hitbox.set_damage(projectile_damage)
 
 
 func _physics_process(delta):
@@ -14,6 +22,7 @@ func destroy():
 
 
 func _on_IronSword_area_entered(area):
+
 	destroy()
 
 

@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var attack_origin = get_node("AttackOrigin")
+onready var wall = get_node("Wall")
 
 ##Variables influenced by player stats
 #export(float) var damage = 1
@@ -27,6 +28,8 @@ var on_area = false
 
 
 func _ready():
+	wall.connect("game_finished", get_parent().get_parent(), 'game_over')
+	wall.connect("game_finished", get_parent(), 'game_over')
 	fire_rate = 1 / GameData.player_data["agility"]
 	create_projectile_array()
 
@@ -83,4 +86,3 @@ func attack(projectile_direction: Vector2):
 	can_fire = false
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	can_fire = true
-
