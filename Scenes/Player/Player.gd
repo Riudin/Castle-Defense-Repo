@@ -17,7 +17,7 @@ onready var attack_origin = get_node("AttackOrigin")
 
 var fire_rate = 1
  
-var projectile = preload("res://Scenes/Player/Weapons/IronSword.tscn")
+var projectile = preload("res://Scenes/Weapons/IronSword.tscn")
 var projectile_count = 1
 var projectile_array = [0]
 var can_fire = true
@@ -29,6 +29,7 @@ var on_area = false
 func _ready():
 	fire_rate = 1 / GameData.player_data["agility"]
 	create_projectile_array()
+
 
 func _process(delta):
 	if Input.is_action_pressed("attack") and can_fire:
@@ -66,12 +67,6 @@ func _input(event):
 		
 		elif event is InputEventScreenDrag:
 			touch_pos = event.get_position()
-
-
-#			
-#		var projectile_direction = attack_origin.global_position.direction_to(touch_pos)
-#		if can_fire:
-#			attack(projectile_direction)
 
 
 func attack(projectile_direction: Vector2):

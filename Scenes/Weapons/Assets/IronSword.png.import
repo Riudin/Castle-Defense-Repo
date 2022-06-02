@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stickman.png-7dfd01adf150f7d0250e5131274ba980.stex"
+path="res://.import/IronSword.png-9301b599108113b06f57680017263fdd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Player/stickman.png"
-dest_files=[ "res://.import/stickman.png-7dfd01adf150f7d0250e5131274ba980.stex" ]
+source_file="res://Scenes/Weapons/Assets/IronSword.png"
+dest_files=[ "res://.import/IronSword.png-9301b599108113b06f57680017263fdd.stex" ]
 
 [params]
 

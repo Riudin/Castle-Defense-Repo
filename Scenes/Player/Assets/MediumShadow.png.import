@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/IronSword.png-d18b93e5bde53168ef169958a4cdf849.stex"
+path="res://.import/MediumShadow.png-5a3a12fcee384eb7f4e0f389a8b47a97.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Player/Weapons/Assets/IronSword.png"
-dest_files=[ "res://.import/IronSword.png-d18b93e5bde53168ef169958a4cdf849.stex" ]
+source_file="res://Scenes/Player/Assets/MediumShadow.png"
+dest_files=[ "res://.import/MediumShadow.png-5a3a12fcee384eb7f4e0f389a8b47a97.stex" ]
 
 [params]
 

@@ -9,10 +9,12 @@ var health = 4
 var wall_damage = 2
 var attack_rate = 1
 var gold_drop = 2
+var x_pos = self.position.x
 
 var can_attack = true
 var is_alive = true
 
+onready var animation_player = get_node("AnimationPlayer")
 onready var hurtbox = get_node("Hurtbox")
 onready var health_bar = get_node("HealthBar")
 onready var attack_rate_timer = get_node("AttackRateTimer")
@@ -26,6 +28,7 @@ func _ready():
 	attack_rate_timer.wait_time = attack_rate
 	health_bar.max_value = health
 	health_bar.value = health
+	animation_player.play("move")
 
 
 func _physics_process(delta):

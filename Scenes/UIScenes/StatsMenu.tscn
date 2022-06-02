@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/UIScenes/Assets/Fonts/retro_gaming_10_OL.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/UIScenes/Assets/Icons/Currency/coin.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/UIScenes/StatsMenu.gd" type="Script" id=6]
-[ext_resource path="res://Scenes/Player/Weapons/Assets/IronSword.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Weapons/Assets/IronSword.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/UIScenes/Assets/Fonts/Retro Gaming.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://Scenes/UIScenes/Assets/Fonts/retro_gaming_7.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Scenes/UIScenes/Assets/Fonts/retro_gaming_5.tres" type="DynamicFont" id=10]

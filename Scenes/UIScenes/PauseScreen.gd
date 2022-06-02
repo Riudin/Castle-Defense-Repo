@@ -15,11 +15,9 @@ func _on_ContinueButton_pressed():
 	self.queue_free()
 
 
-
 func _on_RestartButton_pressed():
 	get_tree().paused = false
 	emit_signal("restart_pressed")
-
 
 
 func _on_QuitButton_pressed():

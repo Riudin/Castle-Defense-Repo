@@ -18,9 +18,6 @@ func update_weapon_tickets():
 	weapon_ticket_display.text = str(weapon_tickets)
 
 
-
-
-
 func _on_StatsMenuButton_pressed():
 	emit_signal("StatsMenuButton_pressed")
 

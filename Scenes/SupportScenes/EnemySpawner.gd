@@ -11,6 +11,7 @@ var waves = 3
 var current_wave = 0
 var enemies_in_wave = 0
 var max_enemies = 15
+var nearest_enemy setget , get_nearest_enemy
 
 var time_start = 0
 var time_now = 0
@@ -22,6 +23,7 @@ var wave_columns = 3
 
 var taken_spaces = []
 var wave_array = []
+export var _enemies = [] setget , get_enemies
 
 onready var spawn_area = get_node("EnemySpawn")
 
@@ -42,13 +44,19 @@ func start_waves():
 	pass
 
 
+func get_enemies():
+	return _enemies
+
+
 func _on_WaveSpawnTimer_timeout():
 	if current_wave + 1 <= waves:
 		start_next_wave()
-	#check_enemy_count()
+	check_enemies()
 
 
 func on_enemy_killed():
+	_enemies.remove(0)
+	check_enemies()
 	enemies_killed += 1
 	check_enemy_count()
 
@@ -63,6 +71,22 @@ func check_enemy_count():
 		emit_signal("game_finished", true)
 		emit_signal("loot_time")
 		print("loot_signal")
+
+
+func check_enemies():
+	_enemies = get_node("EnemySpawn").get_children()
+	#print(_enemies)
+	if _enemies != []:
+		return _enemies[0]
+		#print(_enemies[0])
+#		for enemy in enemies:
+#			var enemy_x_pos = enemy.position.x
+#			print(enemy_x_pos)
+
+
+func get_nearest_enemy():
+	nearest_enemy = _enemies[0]
+	return nearest_enemy
 
 
 func start_next_wave():
@@ -102,6 +126,7 @@ func spawn_enemies(wave_data):
 		new_enemy.connect("enemy_killed", self, 'on_enemy_killed')
 		new_enemy.position = enemy_spawn_location
 		spawn_area.add_child(new_enemy, true)
+		new_enemy.add_to_group("enemies")
 
 
 func get_enemies_killed():
