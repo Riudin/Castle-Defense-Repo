@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Assets/Environment/Currency/hero_ticket.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Resources/Fonts/retro_gaming_6_noOL.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scenes/UIScenes/Assets/Icons/Currency/hero_ticket.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/UIScenes/Assets/Fonts/retro_gaming_6_noOL.tres" type="DynamicFont" id=2]
 
 [node name="HeroTicket" type="Control"]
 rect_min_size = Vector2( 26, 16 )

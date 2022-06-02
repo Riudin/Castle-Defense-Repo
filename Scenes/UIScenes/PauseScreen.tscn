@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Assets/Resources/Fonts/Retro Gaming.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Assets/UI/Buttons/blue_button03.png" type="Texture" id=2]
-[ext_resource path="res://Assets/UI/Buttons/blue_button05.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Resources/Fonts/retro_gaming_5.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Scenes/UIScenes/Assets/Fonts/Retro Gaming.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/UIScenes/Assets/Buttons/blue_button03.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/UIScenes/Assets/Buttons/blue_button05.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/UIScenes/Assets/Fonts/retro_gaming_5.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/UIScenes/PauseScreen.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=2]
