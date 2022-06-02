@@ -1,0 +1,143 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Resources/Fonts/Retro Gaming.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/UI/Buttons/blue_button03.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/Buttons/blue_button05.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Resources/Fonts/retro_gaming_5.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Scripts/UIScripts/PauseScreen.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.25098 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.54902, 0.415686, 0.239216, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.223529, 0.168627, 0.0941176, 1 )
+anti_aliasing = false
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 1 )
+
+[node name="PauseScreen" type="CanvasLayer"]
+pause_mode = 2
+layer = 2
+script = ExtResource( 5 )
+
+[node name="Overlay" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="PauseScreenContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseScreenContainer"]
+margin_left = 118.0
+margin_top = 48.0
+margin_right = 202.0
+margin_bottom = 131.0
+custom_styles/panel = SubResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseScreenContainer/PanelContainer"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 83.0
+margin_bottom = 82.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="Rows" type="VBoxContainer" parent="PauseScreenContainer/PanelContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 77.0
+margin_bottom = 76.0
+
+[node name="Title" type="Label" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows"]
+margin_right = 72.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0.560784, 0.0666667, 0.0666667, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.705882 )
+custom_fonts/font = SubResource( 4 )
+text = "Paused"
+align = 1
+valign = 1
+
+[node name="HSeparator" type="HSeparator" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows"]
+self_modulate = Color( 0.952941, 0.662745, 0.0392157, 1 )
+margin_top = 25.0
+margin_right = 72.0
+margin_bottom = 29.0
+
+[node name="Buttons" type="VBoxContainer" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows"]
+margin_left = 18.0
+margin_top = 33.0
+margin_right = 53.0
+margin_bottom = 71.0
+size_flags_horizontal = 4
+
+[node name="ContinueButton" type="TextureButton" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons"]
+margin_right = 35.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 35, 10 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="Label" type="Label" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons/ContinueButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "Continue"
+align = 1
+valign = 1
+
+[node name="RestartButton" type="TextureButton" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons"]
+margin_top = 14.0
+margin_right = 35.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 35, 10 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="Label" type="Label" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons/RestartButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "Restart"
+align = 1
+valign = 1
+
+[node name="QuitButton" type="TextureButton" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons"]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_top = 28.0
+margin_right = 35.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 35, 10 )
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+expand = true
+
+[node name="Label" type="Label" parent="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons/QuitButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 4 )
+text = "Quit"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="PauseScreenContainer/PanelContainer/MarginContainer/Rows/Buttons/QuitButton" to="." method="_on_QuitButton_pressed"]
