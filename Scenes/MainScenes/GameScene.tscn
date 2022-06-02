@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Maps/Map1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/UIScenes/GameUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Heroes/Fairy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/MainScenes/GameScene.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/SupportScenes/EnemySpawner.tscn" type="PackedScene" id=12]
 
@@ -19,6 +20,12 @@ z_index = -1
 position = Vector2( 67, 82 )
 
 [node name="Heroes" type="Node2D" parent="."]
+
+[node name="Fairy" parent="Heroes" instance=ExtResource( 4 )]
+position = Vector2( 57, 110 )
+
+[node name="Fairy2" parent="Heroes" instance=ExtResource( 4 )]
+position = Vector2( 49, 59 )
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 12 )]
 position = Vector2( 321, 55 )

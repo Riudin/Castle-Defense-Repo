@@ -1,8 +1,14 @@
-extends Area2D
+extends KinematicBody2D
 
+
+onready var hitbox = get_node("Hitbox")
 
 export (int) var projectile_speed = 300
 export (int) var projectile_damage = 1
+
+
+func _ready():
+	hitbox.set_damage(projectile_damage)
 
 
 func _physics_process(delta):

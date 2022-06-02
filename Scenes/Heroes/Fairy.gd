@@ -22,7 +22,7 @@ func _physics_process(delta):
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	if enemies != []:
 		nearest_enemy_position = enemies[0].get_global_position()
-		nearest_enemy_position -= Vector2(12, 6)
+		nearest_enemy_position -= Vector2(0, 12)
 		projectile_direction = attack_origin.global_position.direction_to(nearest_enemy_position)
 		
 	else:

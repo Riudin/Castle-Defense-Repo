@@ -2,10 +2,10 @@ extends Node
 
 
 func _ready():
-	print(get_tree().get_signal_list())
+#	print(get_tree().get_signal_list())
 	show_stats_menu()
 #	load_stats_menu()
-	#GameData.load_game()
+	GameData.load_game()
 	pass
 
 

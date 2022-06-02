@@ -46,7 +46,7 @@ func game_over(result):
 func generate_loot():
 	# loot has a chance to spawn after every level
 	# loot array = loot name in GameData, drop chance in %
-	var loot = [["weapon_tickets", 10], ["hero_tickets", 10]]
+	var loot = [["weapon_tickets", 50], ["hero_tickets", 50]]
 	var victory_screen = get_node("../VictoryScreen")
 	
 	for item in loot:
