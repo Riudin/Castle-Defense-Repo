@@ -49,6 +49,7 @@ shape = SubResource( 3 )
 
 [connection signal="pressed" from="InputArea" to="." method="_on_InputArea_pressed"]
 [connection signal="released" from="InputArea" to="." method="_on_InputArea_released"]
+[connection signal="area_entered" from="Wall/Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
 [editable path="Wall"]
 [editable path="Wall/Hurtbox"]

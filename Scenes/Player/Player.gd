@@ -1,5 +1,8 @@
 extends Node2D
 
+
+signal game_finished(result)
+
 onready var attack_origin = get_node("AttackOrigin")
 onready var wall = get_node("Wall")
 
@@ -28,8 +31,8 @@ var on_area = false
 
 
 func _ready():
-	wall.connect("game_finished", get_parent().get_parent(), 'game_over')
-	wall.connect("game_finished", get_parent(), 'game_over')
+#	wall.connect("game_finished", get_parent().get_parent(), 'game_over')
+#	wall.connect("game_finished", get_parent(), 'game_over')
 	fire_rate = 1 / GameData.player_data["agility"]
 	create_projectile_array()
 
@@ -86,3 +89,23 @@ func attack(projectile_direction: Vector2):
 	can_fire = false
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	can_fire = true
+
+
+#func _on_Hurtbox_area_entered(hitbox):
+#	hitbox.get_parent().animation_player.play("attack")
+#	take_damage(hitbox.damage)
+
+
+func take_damage(damage):
+	GameData.player_data["health"] -= damage
+	if GameData.player_data["health"] > 0:
+		get_parent().get_node("UI").update_health_bar(GameData.player_data["health"])
+	else:
+#		time_now = OS.get_unix_time()
+#		playtime = time_now - time_start
+#		print(playtime)
+		get_parent().get_node("UI").update_health_bar(0)
+		get_parent().get_node("UI/HUD/HealthAndMana/HealthManaBars/HP").value = 0
+		emit_signal("game_finished", false)
+
+

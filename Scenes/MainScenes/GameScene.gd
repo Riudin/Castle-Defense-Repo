@@ -1,10 +1,11 @@
 extends Node2D
 
 
-signal game_finished(result)
+#signal game_finished(result)
 signal weapon_ticket_looted()
 
 onready var enemy_spawner = get_node("EnemySpawner")
+onready var player = get_node("Player")
 
 var time_start = 0
 var time_now = 0
@@ -13,7 +14,9 @@ var playtime = 0 setget set_playtime, get_playtime
 
 func _ready():
 	get_node("UI").update_health_bar(GameData.player_data["health"])
-	enemy_spawner.connect("wall_damage", self, 'on_wall_damage')
+	#player.connect("game_finished", self, 'game_over')
+	player.connect("game_finished", get_parent(), 'game_over')
+#	enemy_spawner.connect("wall_damage", self, 'on_wall_damage')
 	enemy_spawner.connect("loot_time", self, 'generate_loot')
 	enemy_spawner.connect("game_finished", get_parent(), 'game_over')
 	time_start = OS.get_unix_time()

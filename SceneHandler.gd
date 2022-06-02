@@ -2,9 +2,10 @@ extends Node
 
 
 func _ready():
+	print(get_tree().get_signal_list())
 	show_stats_menu()
 #	load_stats_menu()
-	GameData.load_game()
+	#GameData.load_game()
 	pass
 
 
@@ -24,7 +25,7 @@ func start_game():
 	GameData.save_game()
 	delete_active_scenes()
 	var game_scene = load("res://Scenes/MainScenes/GameScene.tscn").instance()
-	game_scene.connect("game_finished", self, 'game_over')
+	#game_scene.connect("game_finished", self, 'game_over')
 	GameData.player_data["health"] = GameData.player_data["max_health"]
 	GameData.stage_data["stage"] = GameData.stage_data["max_stage"]
 	add_child(game_scene)

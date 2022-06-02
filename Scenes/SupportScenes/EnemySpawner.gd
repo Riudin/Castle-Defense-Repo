@@ -2,7 +2,7 @@ extends Node2D
 
 
 signal game_finished(result)
-signal wall_damage(damage)
+#signal wall_damage(damage)
 signal loot_time()
 
 var current_stage = GameData.stage_data["stage"]
@@ -122,7 +122,8 @@ func spawn_enemies(wave_data):
 			new_enemy.position = enemy_spawn_location
 		taken_spaces.append(enemy_spawn_location)
 		
-		new_enemy.connect("wall_damage", get_parent(), 'on_wall_damage')
+		#new_enemy.connect("wall_damage", get_parent(), 'on_wall_damage')
+		new_enemy.connect("dealt_damage", get_parent().get_node("Player"), 'take_damage')
 		new_enemy.connect("enemy_killed", self, 'on_enemy_killed')
 		new_enemy.position = enemy_spawn_location
 		spawn_area.add_child(new_enemy, true)
