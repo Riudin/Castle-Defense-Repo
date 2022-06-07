@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Heroes/HeroDisplay.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Heroes/Assets/HeroIcons/Fairy.png" type="Texture" id=2]
+
+[node name="HeroDisplay" type="Node2D"]
+z_index = 1
+script = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 18.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 18, 18 )
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true

@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Hero_Display_Class",
+"language": "GDScript",
+"path": "res://Scenes/Heroes/HeroDisplay.gd"
+}, {
+"base": "Panel",
+"class": "Slot_Class",
+"language": "GDScript",
+"path": "res://Scenes/UIScenes/Slot.gd"
+} ]
+_global_script_class_icons={
+"Hero_Display_Class": "",
+"Slot_Class": ""
+}
+
 [application]
 
 config/name="Castle Defense"
@@ -17,6 +33,8 @@ config/icon="res://icon.png"
 [autoload]
 
 GameData="*res://Autoload/GameData.gd"
+HeroInventoryManager="*res://Autoload/HeroInventoryManager.gd"
+JsonData="*res://Autoload/JSONData.gd"
 
 [display]
 
