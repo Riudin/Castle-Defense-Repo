@@ -9,12 +9,12 @@ var player_data = {
 	"projectile_count": 1,
 	"gold": 0,
 	"weapon_tickets": 0,
-	"hero_tickets": 0
+	"hero_tickets": 2
 }
 
 var stage_data = {
-	"max_stage":1,
-	"stage":1
+	"max_stage": 1,
+	"stage": 1
 }
 
 var upgrade_data = {
@@ -41,6 +41,8 @@ func save_game():
 	f.store_line(to_json(player_data))
 	f.store_line(to_json(stage_data))
 	f.store_line(to_json(upgrade_data))
+	f.store_line(to_json(HeroInventoryManager.inventory))
+	f.store_line(to_json(HeroInventoryManager.equips))
 	
 	f.close()
 	
@@ -58,6 +60,8 @@ func load_game():
 	player_data = parse_json(f.get_line())
 	stage_data = parse_json(f.get_line())
 	upgrade_data = parse_json(f.get_line())
+	HeroInventoryManager.inventory = parse_json(f.get_line())
+	HeroInventoryManager.equips = parse_json(f.get_line())
 	
 	f.close()
 	

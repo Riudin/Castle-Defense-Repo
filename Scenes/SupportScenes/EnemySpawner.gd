@@ -2,7 +2,6 @@ extends Node2D
 
 
 signal game_finished(result)
-signal wall_damage(damage)
 signal loot_time()
 
 var current_stage = GameData.stage_data["stage"]
@@ -15,6 +14,8 @@ var nearest_enemy setget , get_nearest_enemy
 
 var time_start = 0
 var time_now = 0
+
+var game_running: bool = true
 
 var enemies_killed = 0 setget , get_enemies_killed
 
@@ -55,33 +56,27 @@ func _on_WaveSpawnTimer_timeout():
 
 
 func on_enemy_killed():
-	_enemies.remove(0)
 	check_enemies()
+	_enemies.remove(0)
 	enemies_killed += 1
 	check_enemy_count()
 
 
 func check_enemy_count():
-	if current_wave == waves and get_node("EnemySpawn").get_child_count() <= 1:
+	if current_wave == waves and _enemies.size() < 1:
 		yield(get_tree().create_timer(0.5), "timeout")
 		GameData.stage_data["max_stage"] += 1
 		time_now = OS.get_unix_time()
 		get_parent().set_playtime(time_now - time_start)
-#		emit_signal("loot_time")
 		emit_signal("game_finished", true)
 		emit_signal("loot_time")
-		print("loot_signal")
 
 
-func check_enemies():
+
+func check_enemies(): # checks for nearest enemy. need to update function name
 	_enemies = get_node("EnemySpawn").get_children()
-	#print(_enemies)
 	if _enemies != []:
 		return _enemies[0]
-		#print(_enemies[0])
-#		for enemy in enemies:
-#			var enemy_x_pos = enemy.position.x
-#			print(enemy_x_pos)
 
 
 func get_nearest_enemy():
@@ -121,8 +116,6 @@ func spawn_enemies(wave_data):
 			enemy_spawn_location = Vector2(x_pos, y_pos)
 			new_enemy.position = enemy_spawn_location
 		taken_spaces.append(enemy_spawn_location)
-		
-		new_enemy.connect("wall_damage", get_parent(), 'on_wall_damage')
 		new_enemy.connect("enemy_killed", self, 'on_enemy_killed')
 		new_enemy.position = enemy_spawn_location
 		spawn_area.add_child(new_enemy, true)

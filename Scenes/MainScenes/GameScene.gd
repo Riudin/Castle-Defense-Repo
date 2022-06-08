@@ -1,49 +1,53 @@
 extends Node2D
 
 
-signal game_finished(result)
+#signal game_finished(result)
 signal weapon_ticket_looted()
+signal hero_ticket_looted()
 
 onready var enemy_spawner = get_node("EnemySpawner")
+onready var player = get_node("Player")
 
 var time_start = 0
 var time_now = 0
 var playtime = 0 setget set_playtime, get_playtime
 
-var _enemies = []
-
 
 func _ready():
 	get_node("UI").update_health_bar(GameData.player_data["health"])
-	enemy_spawner.connect("wall_damage", self, 'on_wall_damage')
+	#player.connect("game_finished", self, 'game_over')
+	player.connect("game_finished", get_parent(), 'game_over')
+#	enemy_spawner.connect("wall_damage", self, 'on_wall_damage')
 	enemy_spawner.connect("loot_time", self, 'generate_loot')
 	enemy_spawner.connect("game_finished", get_parent(), 'game_over')
 	time_start = OS.get_unix_time()
 
 
-func _physics_process(delta):
-#	_enemies = enemy_spawner.get_node("EnemySpawn").get_children()
-#	print(_enemies)
-	pass
-
-
-func on_wall_damage(damage): 
-	GameData.player_data["health"] -= damage
-	if GameData.player_data["health"] > 0:
-		get_node("UI").update_health_bar(GameData.player_data["health"])
+func game_over(result):
+	if result:
+		return
 	else:
 		time_now = OS.get_unix_time()
 		playtime = time_now - time_start
-		print(playtime)
-		get_node("UI").update_health_bar(0)
-		get_node("UI/HUD/HealthAndMana/HealthManaBars/HP").value = 0
-		emit_signal("game_finished", false)
+
+
+#func on_wall_damage(damage): 
+#	GameData.player_data["health"] -= damage
+#	if GameData.player_data["health"] > 0:
+#		get_node("UI").update_health_bar(GameData.player_data["health"])
+#	else:
+#		time_now = OS.get_unix_time()
+#		playtime = time_now - time_start
+#		print(playtime)
+#		get_node("UI").update_health_bar(0)
+#		get_node("UI/HUD/HealthAndMana/HealthManaBars/HP").value = 0
+#		emit_signal("game_finished", false)
 
 
 func generate_loot():
 	# loot has a chance to spawn after every level
 	# loot array = loot name in GameData, drop chance in %
-	var loot = [["weapon_tickets", 10], ["hero_tickets", 10]]
+	var loot = [["weapon_tickets", 50], ["hero_tickets", 50]]
 	var victory_screen = get_node("../VictoryScreen")
 	
 	for item in loot:

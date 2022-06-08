@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Scenes/Enemies/Enemy.gd"
+}, {
+"base": "Node2D",
+"class": "Hero_Display_Class",
+"language": "GDScript",
+"path": "res://Scenes/Heroes/HeroDisplay.gd"
+}, {
+"base": "Panel",
+"class": "Slot_Class",
+"language": "GDScript",
+"path": "res://Scenes/UIScenes/Slot.gd"
+} ]
+_global_script_class_icons={
+"Enemy": "",
+"Hero_Display_Class": "",
+"Slot_Class": ""
+}
+
 [application]
 
 config/name="Castle Defense"
@@ -17,6 +39,8 @@ config/icon="res://icon.png"
 [autoload]
 
 GameData="*res://Autoload/GameData.gd"
+HeroInventoryManager="*res://Autoload/HeroInventoryManager.gd"
+JsonData="*res://Autoload/JSONData.gd"
 
 [display]
 
@@ -69,8 +93,6 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Projectile"
-2d_physics/layer_5="Enemy_Hurtbox"
-2d_physics/layer_6="Wall_Hurtbox"
 
 [physics]
 

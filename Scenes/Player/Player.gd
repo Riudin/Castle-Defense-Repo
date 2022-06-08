@@ -1,4 +1,7 @@
-extends Node2D
+extends KinematicBody2D
+
+
+signal game_finished(result)
 
 onready var attack_origin = get_node("AttackOrigin")
 
@@ -25,9 +28,11 @@ var can_fire = true
 var touch_pos = Vector2()
 var on_area = false
 
+var attacking_enemies: Array = []
+
 
 func _ready():
-	fire_rate = 1 / GameData.player_data["agility"]
+	set_variables()
 	create_projectile_array()
 
 
@@ -36,6 +41,30 @@ func _process(delta):
 		var projectile_direction = attack_origin.global_position.direction_to(touch_pos)
 		if projectile_direction.x > 0:
 			attack(projectile_direction)
+
+
+func _physics_process(delta):
+	calculate_damage_taken()
+
+
+func calculate_damage_taken():
+	if attacking_enemies.empty():
+		return
+	
+	for e in attacking_enemies.size():
+		if (attacking_enemies.size() - 1) < e:
+			return
+			
+		if is_instance_valid(attacking_enemies[e]):
+			if attacking_enemies[e].can_attack:
+				take_damage(attacking_enemies[e].damage)
+				attacking_enemies[e].can_attack = false
+		else:
+			attacking_enemies.remove(e)
+
+
+func set_variables():
+	fire_rate = 1 / GameData.player_data["agility"]
 
 
 func create_projectile_array():
@@ -84,3 +113,19 @@ func attack(projectile_direction: Vector2):
 	yield(get_tree().create_timer(fire_rate), "timeout")
 	can_fire = true
 
+
+func take_damage(dmg):
+	GameData.player_data["health"] -= dmg
+	if GameData.player_data["health"] > 0:
+		get_parent().get_node("UI").update_health_bar(GameData.player_data["health"])
+	else:
+#		time_now = OS.get_unix_time()
+#		playtime = time_now - time_start
+#		print(playtime)
+		get_parent().get_node("UI").update_health_bar(0)
+		get_parent().get_node("UI/HUD/HealthAndMana/HealthManaBars/HP").value = 0
+		emit_signal("game_finished", false)
+
+
+func _on_Hurtbox_body_entered(enemy):
+	attacking_enemies.append(enemy)
