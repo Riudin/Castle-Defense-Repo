@@ -17,7 +17,10 @@ func _ready():
 
 func delete_active_scenes():
 	var active_scenes = get_tree().get_nodes_in_group("active_scenes")
+	var projectiles = get_tree().get_nodes_in_group("Projectile")
 	for i in active_scenes:
+		i.queue_free()
+	for i in projectiles:
 		i.queue_free()
 
 

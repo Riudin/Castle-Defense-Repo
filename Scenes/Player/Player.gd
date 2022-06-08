@@ -1,10 +1,10 @@
-extends Node2D
+extends KinematicBody2D
 
 
 signal game_finished(result)
 
 onready var attack_origin = get_node("AttackOrigin")
-onready var wall = get_node("Wall")
+#onready var wall = get_node("Wall")
 
 ##Variables influenced by player stats
 #export(float) var damage = 1
@@ -33,7 +33,7 @@ var on_area = false
 func _ready():
 #	wall.connect("game_finished", get_parent().get_parent(), 'game_over')
 #	wall.connect("game_finished", get_parent(), 'game_over')
-	fire_rate = 1 / GameData.player_data["agility"]
+	set_variables()
 	create_projectile_array()
 
 
@@ -42,6 +42,10 @@ func _process(delta):
 		var projectile_direction = attack_origin.global_position.direction_to(touch_pos)
 		if projectile_direction.x > 0:
 			attack(projectile_direction)
+
+
+func set_variables():
+	fire_rate = 1 / GameData.player_data["agility"]
 
 
 func create_projectile_array():
@@ -96,8 +100,8 @@ func attack(projectile_direction: Vector2):
 #	take_damage(hitbox.damage)
 
 
-func take_damage(damage):
-	GameData.player_data["health"] -= damage
+func take_damage(dmg):
+	GameData.player_data["health"] -= dmg
 	if GameData.player_data["health"] > 0:
 		get_parent().get_node("UI").update_health_bar(GameData.player_data["health"])
 	else:
@@ -109,3 +113,17 @@ func take_damage(damage):
 		emit_signal("game_finished", false)
 
 
+func _on_Hurtbox_area_entered(hitbox):
+	take_damage(hitbox.damage)
+	#hitbox.get_parent().on_attack()
+	#_on_Hurtbox_area_exited(hitbox)
+
+
+func _on_Hurtbox_area_exited(hitbox):
+	pass
+#	print("enemy left the hurtbox", hitbox)
+#	yield(get_tree().create_timer(hitbox.get_parent().attack_rate), "timeout")
+#	if hitbox.get_parent() == null:
+#		return
+#	else:
+#		_on_Hurtbox_area_entered(hitbox)

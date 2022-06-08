@@ -4,6 +4,7 @@ extends Node2D
 signal game_finished(result)
 #signal wall_damage(damage)
 signal loot_time()
+signal last_wave
 
 var current_stage = GameData.stage_data["stage"]
 var max_stage = GameData.stage_data["max_stage"]
@@ -15,6 +16,8 @@ var nearest_enemy setget , get_nearest_enemy
 
 var time_start = 0
 var time_now = 0
+
+var game_running: bool = true
 
 var enemies_killed = 0 setget , get_enemies_killed
 
@@ -51,37 +54,35 @@ func get_enemies():
 func _on_WaveSpawnTimer_timeout():
 	if current_wave + 1 <= waves:
 		start_next_wave()
+#	else:
+#		check_enemy_count() # workaround for victory screen not appearing when last 2 enemies are killed on the same frame.
 	check_enemies()
+	
 
 
 func on_enemy_killed():
-	_enemies.remove(0)
 	check_enemies()
+	_enemies.remove(0)
 	enemies_killed += 1
 	check_enemy_count()
 
 
 func check_enemy_count():
-	if current_wave == waves and get_node("EnemySpawn").get_child_count() <= 1:
+	print(_enemies)
+	if current_wave == waves and _enemies.size() < 1:
 		yield(get_tree().create_timer(0.5), "timeout")
 		GameData.stage_data["max_stage"] += 1
 		time_now = OS.get_unix_time()
 		get_parent().set_playtime(time_now - time_start)
-#		emit_signal("loot_time")
 		emit_signal("game_finished", true)
 		emit_signal("loot_time")
-		print("loot_signal")
 
 
-func check_enemies():
+
+func check_enemies(): # checks for nearest enemy. need to update function name
 	_enemies = get_node("EnemySpawn").get_children()
-	#print(_enemies)
 	if _enemies != []:
 		return _enemies[0]
-		#print(_enemies[0])
-#		for enemy in enemies:
-#			var enemy_x_pos = enemy.position.x
-#			print(enemy_x_pos)
 
 
 func get_nearest_enemy():
@@ -94,6 +95,9 @@ func start_next_wave():
 	var wave_data = retrieve_wave_data()
 	spawn_enemies(wave_data)
 	current_wave += 1
+	if current_wave == waves:
+		emit_signal("last_wave")
+		print("last wave")
 
 
 func retrieve_wave_data():
@@ -123,7 +127,7 @@ func spawn_enemies(wave_data):
 		taken_spaces.append(enemy_spawn_location)
 		
 		#new_enemy.connect("wall_damage", get_parent(), 'on_wall_damage')
-		new_enemy.connect("dealt_damage", get_parent().get_node("Player"), 'take_damage')
+		#new_enemy.connect("dealt_damage", get_parent().get_node("Player"), 'take_damage')
 		new_enemy.connect("enemy_killed", self, 'on_enemy_killed')
 		new_enemy.position = enemy_spawn_location
 		spawn_area.add_child(new_enemy, true)
@@ -132,3 +136,7 @@ func spawn_enemies(wave_data):
 
 func get_enemies_killed():
 	return enemies_killed
+
+
+func _on_EnemySpawner_last_wave():
+	pass # Replace with function body.

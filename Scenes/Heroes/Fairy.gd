@@ -3,7 +3,7 @@ extends Node2D
 
 onready var animation_player = get_node("AnimationPlayer")
 onready var attack_origin = get_node("AttackOrigin")
-onready var enemy_spawner = get_parent().get_parent().get_node("EnemySpawner")
+#onready var enemy_spawner = get_parent().get_parent().get_node("EnemySpawner")
 
 var fire_rate = 1
 var can_fire = true
@@ -32,13 +32,13 @@ func _physics_process(delta):
 		attack(projectile_direction)
 
 
-func attack(projectile_direction: Vector2):
+func attack(projectile_dir: Vector2):
 	if projectile:
 		var projectile_instance = projectile.instance()
 		get_tree().current_scene.add_child(projectile_instance)
 		projectile_instance.global_position = attack_origin.global_position
 		
-		var projectile_instance_rotation = projectile_direction.angle()
+		var projectile_instance_rotation = projectile_dir.angle()
 		projectile_instance.rotation = projectile_instance_rotation
 		
 	can_fire = false

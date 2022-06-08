@@ -3,6 +3,7 @@ extends Node2D
 
 #signal game_finished(result)
 signal weapon_ticket_looted()
+signal hero_ticket_looted()
 
 onready var enemy_spawner = get_node("EnemySpawner")
 onready var player = get_node("Player")

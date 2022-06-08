@@ -1,7 +1,7 @@
-extends KinematicBody2D
+extends "res://Scenes/SupportScenes/Hitbox.gd"
 
 
-onready var hitbox = get_node("Hitbox")
+signal deal_damage(dmg)
 
 export var projectile_speed = 300
 export (int) var projectile_damage = 1
@@ -9,7 +9,7 @@ export (int) var projectile_damage = 1
 
 func _ready():
 	projectile_damage = GameData.player_data["damage"]
-	hitbox.set_damage(projectile_damage)
+	self.add_to_group("Projectile")
 
 
 func _physics_process(delta):
@@ -22,14 +22,12 @@ func _physics_process(delta):
 
 
 func destroy():
-	queue_free()
+	self.queue_free()
 
 
 func _on_VisibilityNotifier2D_screen_exited():
-	queue_free()
+	destroy()
 
 
-func _on_Hitbox_area_entered(area):
-	print(area)
-	#destroy()
-
+func _on_IronSword_area_entered(area):
+	destroy()
