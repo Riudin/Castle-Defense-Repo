@@ -15,7 +15,7 @@ var gold_drop = 2
 var x_pos = self.position.x
 
 var can_attack = true
-var is_alive = true
+#var is_alive = true
 
 onready var hitbox = get_node("Hitbox")
 onready var animation_player = get_node("AnimationPlayer")
@@ -73,13 +73,13 @@ func take_damage(dmg):
 	if health <= 0:
 		on_destroy()
 
-
-func _on_Hurtbox_area_entered(area):
-	take_damage(area.projectile_damage)
+#
+#func _on_Hurtbox_area_entered(area):
+#	take_damage(area.projectile_damage)
 
 
 func on_destroy():
-	is_alive = false
+	#is_alive = false
 	GameData.player_data["gold"] += gold_drop
 	emit_signal("enemy_killed")
 	queue_free()

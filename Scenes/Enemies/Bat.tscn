@@ -58,7 +58,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=8]
-radius = 6.0
+radius = 8.0
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 5.33333
@@ -67,7 +67,7 @@ height = 5.33333
 [node name="Bat" type="KinematicBody2D"]
 scale = Vector2( 0.75, 0.75 )
 collision_layer = 4
-collision_mask = 2
+collision_mask = 10
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -86,21 +86,26 @@ z_index = -1
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -16 )
 shape = SubResource( 8 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 0, -14.6667 )
 collision_layer = 4
 collision_mask = 0
+monitorable = false
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 rotation = 0.0
 shape = SubResource( 12 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 5 )]
+visible = false
 position = Vector2( 0, -1.33333 )
 scale = Vector2( 0.768816, 0.898099 )
 collision_layer = 0
+monitoring = false
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 visible = false
@@ -116,7 +121,6 @@ nine_patch_stretch = true
 
 [node name="AttackRateTimer" type="Timer" parent="."]
 
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="timeout" from="AttackRateTimer" to="." method="_on_AttackRateTimer_timeout"]
 
 [editable path="Hitbox"]

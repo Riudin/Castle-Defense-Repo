@@ -68,7 +68,7 @@ func on_enemy_killed():
 
 
 func check_enemy_count():
-	print(_enemies)
+	#print(_enemies)
 	if current_wave == waves and _enemies.size() < 1:
 		yield(get_tree().create_timer(0.5), "timeout")
 		GameData.stage_data["max_stage"] += 1

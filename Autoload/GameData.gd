@@ -4,7 +4,7 @@ extends Node
 var player_data = {
 	"max_health": 100,
 	"health": 100,
-	"damage": 1,
+	"damage": 10,
 	"agility": 1.5,
 	"projectile_count": 1,
 	"gold": 0,
@@ -13,8 +13,8 @@ var player_data = {
 }
 
 var stage_data = {
-	"max_stage": 1,
-	"stage": 1
+	"max_stage": 5,
+	"stage": 5
 }
 
 var upgrade_data = {
