@@ -16,6 +16,10 @@ func _physics_process(delta):
 	global_position += projectile_speed * direction * delta
 
 
+func on_hit():
+	destroy()
+
+
 func destroy():
 	queue_free()
 

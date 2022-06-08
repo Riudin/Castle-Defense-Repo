@@ -1,12 +1,14 @@
 extends KinematicBody2D
+class_name Enemy
 
+### maybe remove attackratetimer later
 
 #signal wall_damage(damage)
 signal enemy_killed()
 signal dealt_damage(damage)
 
 var speed = 20
-var health = 4
+var health: float = 4
 var wall_damage = 2
 var attack_rate = 1
 var gold_drop = 2
@@ -25,7 +27,8 @@ onready var enemy_spawner = get_parent().get_parent()
 
 func _ready():
 	gold_drop += round(rand_range(enemy_spawner.current_stage / 5, enemy_spawner.current_stage / 2))
-	health += round(enemy_spawner.current_stage * 1.2)
+	health *= pow(1.064, enemy_spawner.current_stage)   #round(enemy_spawner.current_stage * 1.2)
+	print(health)
 	wall_damage += round(enemy_spawner.current_stage / 10)
 	hitbox.set_damage(wall_damage)
 	attack_rate_timer.wait_time = attack_rate
@@ -59,6 +62,8 @@ func move(delta):
 
 func _on_Hurtbox_area_entered(hostile_hitbox):
 	if is_alive:
+		#hostile_hitbox.queue_free()
+		#hostile_hitbox.get_parent().on_hit()
 		health -= hostile_hitbox.damage
 		health_bar.visible = true
 		health_bar.value = health

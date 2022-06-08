@@ -1,1 +1,2 @@
-extends "res://Scenes/Enemies/BatEnemy.gd"
+extends Enemy
+
