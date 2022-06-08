@@ -1,25 +1,21 @@
 extends KinematicBody2D
 class_name Enemy
 
-### maybe remove attackratetimer later
+### maybe remove attackratetimer object later
 
-#signal wall_damage(damage)
 signal enemy_killed()
-#signal dealt_damage(damage)
 
-var speed = 20
+var speed = 60
 var health: float = 4
 var damage = 2
 var attack_rate = 1
 var gold_drop = 2
 var x_pos = self.position.x
 
-var can_attack = true
-#var is_alive = true
+var can_attack = true setget set_can_attack
 
 onready var hitbox = get_node("Hitbox")
 onready var animation_player = get_node("AnimationPlayer")
-#onready var hurtbox = get_node("Hurtbox")
 onready var health_bar = get_node("HealthBar")
 onready var attack_rate_timer = get_node("AttackRateTimer")
 onready var enemy_spawner = get_parent().get_parent()
@@ -30,7 +26,6 @@ func _ready():
 
 
 func _physics_process(delta):
-	#if is_alive:
 	move(delta)
 
 
@@ -45,21 +40,16 @@ func set_variables():
 	health_bar.value = health
 
 
-#func _on_AttackRateTimer_timeout():
-#	if GameData.player_data["health"] <= 0:
-#		can_attack = false
-#	elif get_node("Hitbox").overlaps_area(get_parent().get_parent().get_parent().get_node("Player/Wall/Hurtbox")) and can_attack:
-#		emit_signal("wall_damage", wall_damage)
+func set_can_attack(b: bool):
+	can_attack = b
+	attack_rate_timer.start()
+	yield(attack_rate_timer, "timeout")
+	can_attack = !can_attack
 
 
 func move(delta):
 	var _collision = move_and_collide(Vector2.LEFT * speed * delta)
 	animation_player.play("move")
-#	if collision and can_attack:
-#		emit_signal("dealt_damage", damage)
-#		can_attack = false
-#		yield(get_tree().create_timer(attack_rate), "timeout")
-#		can_attack = true
 
 
 func on_attack():
@@ -73,13 +63,9 @@ func take_damage(dmg):
 	if health <= 0:
 		on_destroy()
 
-#
-#func _on_Hurtbox_area_entered(area):
-#	take_damage(area.projectile_damage)
-
 
 func on_destroy():
-	#is_alive = false
+	attack_rate_timer.stop()
 	GameData.player_data["gold"] += gold_drop
 	emit_signal("enemy_killed")
 	queue_free()

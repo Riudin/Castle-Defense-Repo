@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Enemies/Assets/SmallShadow.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Enemies/Assets/Bat.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Enemies/Bat.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/UIScenes/Assets/HPbar.jpg" type="Texture" id=4]
-[ext_resource path="res://Scenes/SupportScenes/Hurtbox.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/SupportScenes/Hitbox.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=10]
@@ -60,9 +59,9 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=8]
 radius = 8.0
 
-[sub_resource type="CapsuleShape2D" id=12]
-radius = 5.33333
-height = 5.33333
+[sub_resource type="CapsuleShape2D" id=14]
+radius = 6.66667
+height = 1.90735e-06
 
 [node name="Bat" type="KinematicBody2D"]
 scale = Vector2( 0.75, 0.75 )
@@ -90,22 +89,15 @@ position = Vector2( 0, -16 )
 shape = SubResource( 8 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 6 )]
-visible = false
 position = Vector2( 0, -14.6667 )
 collision_layer = 4
 collision_mask = 0
 monitorable = false
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
+position = Vector2( 0, -1.3333 )
 rotation = 0.0
-shape = SubResource( 12 )
-
-[node name="Hurtbox" parent="." instance=ExtResource( 5 )]
-visible = false
-position = Vector2( 0, -1.33333 )
-scale = Vector2( 0.768816, 0.898099 )
-collision_layer = 0
-monitoring = false
+shape = SubResource( 14 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 visible = false
@@ -120,7 +112,6 @@ tint_progress = Color( 0.556863, 0.027451, 0.027451, 0.745098 )
 nine_patch_stretch = true
 
 [node name="AttackRateTimer" type="Timer" parent="."]
-
-[connection signal="timeout" from="AttackRateTimer" to="." method="_on_AttackRateTimer_timeout"]
+one_shot = true
 
 [editable path="Hitbox"]

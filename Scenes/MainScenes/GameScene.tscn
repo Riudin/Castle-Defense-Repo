@@ -45,5 +45,3 @@ collision_mask = 0
 shape = SubResource( 2 )
 
 [node name="UI" parent="." instance=ExtResource( 3 )]
-
-[connection signal="last_wave" from="EnemySpawner" to="EnemySpawner" method="_on_EnemySpawner_last_wave"]

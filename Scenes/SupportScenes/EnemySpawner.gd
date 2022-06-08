@@ -2,9 +2,7 @@ extends Node2D
 
 
 signal game_finished(result)
-#signal wall_damage(damage)
 signal loot_time()
-signal last_wave
 
 var current_stage = GameData.stage_data["stage"]
 var max_stage = GameData.stage_data["max_stage"]
@@ -54,10 +52,7 @@ func get_enemies():
 func _on_WaveSpawnTimer_timeout():
 	if current_wave + 1 <= waves:
 		start_next_wave()
-#	else:
-#		check_enemy_count() # workaround for victory screen not appearing when last 2 enemies are killed on the same frame.
 	check_enemies()
-	
 
 
 func on_enemy_killed():
@@ -68,7 +63,6 @@ func on_enemy_killed():
 
 
 func check_enemy_count():
-	#print(_enemies)
 	if current_wave == waves and _enemies.size() < 1:
 		yield(get_tree().create_timer(0.5), "timeout")
 		GameData.stage_data["max_stage"] += 1
@@ -95,9 +89,6 @@ func start_next_wave():
 	var wave_data = retrieve_wave_data()
 	spawn_enemies(wave_data)
 	current_wave += 1
-	if current_wave == waves:
-		emit_signal("last_wave")
-		print("last wave")
 
 
 func retrieve_wave_data():
@@ -125,9 +116,6 @@ func spawn_enemies(wave_data):
 			enemy_spawn_location = Vector2(x_pos, y_pos)
 			new_enemy.position = enemy_spawn_location
 		taken_spaces.append(enemy_spawn_location)
-		
-		#new_enemy.connect("wall_damage", get_parent(), 'on_wall_damage')
-		#new_enemy.connect("dealt_damage", get_parent().get_node("Player"), 'take_damage')
 		new_enemy.connect("enemy_killed", self, 'on_enemy_killed')
 		new_enemy.position = enemy_spawn_location
 		spawn_area.add_child(new_enemy, true)
@@ -136,7 +124,3 @@ func spawn_enemies(wave_data):
 
 func get_enemies_killed():
 	return enemies_killed
-
-
-func _on_EnemySpawner_last_wave():
-	pass # Replace with function body.

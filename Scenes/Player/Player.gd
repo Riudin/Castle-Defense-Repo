@@ -4,7 +4,6 @@ extends KinematicBody2D
 signal game_finished(result)
 
 onready var attack_origin = get_node("AttackOrigin")
-#onready var wall = get_node("Wall")
 
 ##Variables influenced by player stats
 #export(float) var damage = 1
@@ -29,10 +28,10 @@ var can_fire = true
 var touch_pos = Vector2()
 var on_area = false
 
+var attacking_enemies: Array = []
+
 
 func _ready():
-#	wall.connect("game_finished", get_parent().get_parent(), 'game_over')
-#	wall.connect("game_finished", get_parent(), 'game_over')
 	set_variables()
 	create_projectile_array()
 
@@ -42,6 +41,26 @@ func _process(delta):
 		var projectile_direction = attack_origin.global_position.direction_to(touch_pos)
 		if projectile_direction.x > 0:
 			attack(projectile_direction)
+
+
+func _physics_process(delta):
+	calculate_damage_taken()
+
+
+func calculate_damage_taken():
+	if attacking_enemies.empty():
+		return
+	
+	for e in attacking_enemies.size():
+		if (attacking_enemies.size() - 1) < e:
+			return
+			
+		if is_instance_valid(attacking_enemies[e]):
+			if attacking_enemies[e].can_attack:
+				take_damage(attacking_enemies[e].damage)
+				attacking_enemies[e].can_attack = false
+		else:
+			attacking_enemies.remove(e)
 
 
 func set_variables():
@@ -95,11 +114,6 @@ func attack(projectile_direction: Vector2):
 	can_fire = true
 
 
-#func _on_Hurtbox_area_entered(hitbox):
-#	hitbox.get_parent().animation_player.play("attack")
-#	take_damage(hitbox.damage)
-
-
 func take_damage(dmg):
 	GameData.player_data["health"] -= dmg
 	if GameData.player_data["health"] > 0:
@@ -113,17 +127,5 @@ func take_damage(dmg):
 		emit_signal("game_finished", false)
 
 
-func _on_Hurtbox_area_entered(hitbox):
-	take_damage(hitbox.damage)
-	#hitbox.get_parent().on_attack()
-	#_on_Hurtbox_area_exited(hitbox)
-
-
-func _on_Hurtbox_area_exited(hitbox):
-	pass
-#	print("enemy left the hurtbox", hitbox)
-#	yield(get_tree().create_timer(hitbox.get_parent().attack_rate), "timeout")
-#	if hitbox.get_parent() == null:
-#		return
-#	else:
-#		_on_Hurtbox_area_entered(hitbox)
+func _on_Hurtbox_body_entered(enemy):
+	attacking_enemies.append(enemy)
