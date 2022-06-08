@@ -5,7 +5,7 @@ const NUM_INVENTORY_SLOTS = 30
 #const NUM_EQUIP_SLOTS = 4
 
 var inventory = {
-	0: ["Fairy"]
+	#0: ["Fairy"]
 }
 
 var equips = {

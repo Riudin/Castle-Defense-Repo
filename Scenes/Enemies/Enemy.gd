@@ -5,7 +5,7 @@ class_name Enemy
 
 signal enemy_killed()
 
-var speed = 60
+var speed = 20
 var health: float = 4
 var damage = 2
 var attack_rate = 1

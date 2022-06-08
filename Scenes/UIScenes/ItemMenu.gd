@@ -1,6 +1,7 @@
 extends Control
 
 
+signal StartButton_pressed()
 signal StatsMenuButton_pressed()
 signal HeroMenuButton_pressed()
 
@@ -24,3 +25,7 @@ func _on_StatsMenuButton_pressed():
 
 func _on_HeroMenuButton_pressed():
 	emit_signal("HeroMenuButton_pressed")
+
+
+func _on_Start_pressed():
+	emit_signal("StartButton_pressed")

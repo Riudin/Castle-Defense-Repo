@@ -2,11 +2,11 @@ extends Node
 
 
 func _ready():
+	GameData.load_game()
 #	print(get_tree().get_signal_list())
 	show_stats_menu()
 #	load_stats_menu()
-	GameData.load_game()
-	pass
+	
 
 
 #func load_stats_menu():
@@ -50,6 +50,7 @@ func show_item_menu():
 	GameData.save_game()
 	delete_active_scenes()
 	var item_menu = load("res://Scenes/UIScenes/ItemMenu.tscn").instance()
+	item_menu.connect("StartButton_pressed", self, 'start_game')
 	item_menu.connect("StatsMenuButton_pressed", self, 'show_stats_menu')
 	item_menu.connect("HeroMenuButton_pressed", self, 'show_hero_menu')
 	add_child(item_menu)
@@ -60,6 +61,7 @@ func show_hero_menu():
 	GameData.save_game()
 	delete_active_scenes()
 	var hero_menu = load("res://Scenes/UIScenes/HeroMenu.tscn").instance()
+	hero_menu.connect("StartButton_pressed", self, 'start_game')
 	hero_menu.connect("StatsMenuButton_pressed", self, 'show_stats_menu')
 	hero_menu.connect("ItemMenuButton_pressed", self, 'show_item_menu')
 	add_child(hero_menu)
